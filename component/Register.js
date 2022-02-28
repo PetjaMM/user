@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 import firebase from 'firebase';
 import FormError from './Response/FormError';
 import FormApprove from './Response/FormApprove';
-import { Overlay } from "react-native-elements";
 import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert } from 'react-native';
 export default function Register() {
     const navigation = useNavigation();
@@ -16,11 +15,12 @@ export default function Register() {
     const [FName,setFname] = useState('');
     const [Phone,setPhone] = useState('');
     const [Email,setEmail] = useState('');
-    const [ErrMessage,SetErrMessage] = useState('')
-;    const [Password,setPassword] = useState('');
+    const [ErrMessage,SetErrMessage] = useState('');
+    const [successMessage,setSuccessMessage] = useState('');
+    const [Password,setPassword] = useState('');
     const [ConfirmPassword,setConfirmPassword] = useState('');
     const[displayFormErr,setdisplayFormErr] = useState(false);
-        
+    const [isLoading,setisLoading] = useState(false); 
     function OnLnameChange(value){
         setLname(value);
     }
@@ -41,12 +41,26 @@ export default function Register() {
     }
 
     const RegisterUser = () => {
-        
-               
+        setisLoading(false)
                     firebase.auth().createUserWithEmailAndPassword(Email, Password).then((result)=> {
-                        console.log(result.user)
-            
-                    }); 
+                    
+                        firebase.database().ref(`/users/${firebase.auth().currentUser.uid}`)
+                            .set({      
+                              fname:FName,
+                              lname:LName,
+                              phone:Phone,
+                              email:Email,
+                            }).then(() =>{
+                              setSuccessMessage("Your Account Has Been Successfully Regitered");
+                              setisLoading(false);
+
+                            });
+
+                    }).catch(err =>{
+                      setisLoading(false);
+                      SetErrMessage(err.message);
+                      setdisplayFormErr(true);
+                    })
               
           
         }
@@ -54,9 +68,18 @@ const Validation = () =>{
     var form_inputs = [FName,LName,Phone,Email,Password,ConfirmPassword];
     var Password_match = Password == ConfirmPassword;
 
-if(form_inputs.includes('') || form_inputs.includes(undefined)) return setdisplayFormErr(true);  
-if (Password_match) return RegisterUser();
-if (!Password_match) return setdisplayFormErr(true);  
+if(form_inputs.includes('') || form_inputs.includes(undefined)){
+ SetErrMessage("Please Fill In All The Information");
+  return setdisplayFormErr(true);  
+}
+if (Password_match) 
+{
+  return RegisterUser();
+}
+if (!Password_match){
+  SetErrMessage("Password Do Not Match");
+  return setdisplayFormErr(true);  
+}
 
 }
 
@@ -73,17 +96,24 @@ if (!Password_match) return setdisplayFormErr(true);
      <Text style={styles.Heading}>Sign Up Here</Text>
      <Text style={styles.Label}>Enter Your First Name</Text>
      <TextInput
+   value={FName}
+   onChangeText={OnFnameChange}
         style={styles.input}
         keyboardType="default"
       
       />
         <Text style={styles.Label}>Enter Your Last Name</Text>
       <TextInput
+       value={LName}
+       onChangeText={OnLnameChange}
         style={styles.input}
         keyboardType="default"
+        
       />
         <Text style={styles.Label}>Enter Your Phone Number</Text>
         <TextInput
+          value={Phone}
+          onChangeText={OnPhoneChange}
         style={styles.input}
         keyboardType="numeric"
         maxLength={10}
@@ -91,6 +121,8 @@ if (!Password_match) return setdisplayFormErr(true);
       />
        <Text style={styles.Label}>Enter Your Email Address</Text>
      <TextInput
+       value={Email}
+       onChangeText={OnEmailChange}
         style={styles.input}
         keyboardType="email-address"
       
@@ -98,13 +130,16 @@ if (!Password_match) return setdisplayFormErr(true);
        <Text style={styles.Label}>Enter your Password</Text>
       <TextInput
         style={styles.input}
-      
+        value={Password}
+       onChangeText={OnPassChange}
         maxLength={10}
         secureTextEntry={true}
 
       />
  <Text style={styles.Label}>Confirm your Password</Text>
       <TextInput
+        value={ConfirmPassword}
+        onChangeText={OnCpasswordChange}
         style={styles.input}
         maxLength={10}
         secureTextEntry={true}
@@ -117,10 +152,20 @@ if (!Password_match) return setdisplayFormErr(true);
      
      </View>
      {displayFormErr == true?
-    <FormError   hideErrOverlay= {setdisplayFormErr} />
+    <FormError   hideErrOverlay= {setdisplayFormErr} err = {ErrMessage}/>
     :
     null
      }
+  {isLoading == true?
+  <FormApprove  />
+    
+    :
+    successMessage == 'Your Account Has Been Successfully Regitered'?
+    <FormApprove  hideErrOverlay= {setdisplayFormErr} successMessage = {successMessage}  ></FormApprove>
+    :
+    null
+    }
+
     </ImageBackground>
         
     

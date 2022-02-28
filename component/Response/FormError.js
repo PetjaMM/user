@@ -29,29 +29,28 @@ const styles = StyleSheet.create({
    justifyContent:'center'
     },
     Logo: {
-        width :80,
-        height : 80,
+        width :100,
+        height : 100,
     },
     ErrorText :{
- color:'#000',
- fontSize : 20,
-
- textAlign:'center'
-    },
-
-    Button:{
-        width:'80%',
         color:'#000',
-        height:50,
-        borderRadius:5,
-        backgroundColor:'#000',
-        display:'flex',
-        margin:20,
-        justifyContent:'center',
-        alignItems:'center'
-          },
-          ButtonText:{
-              color:'#fff',
-            fontWeight:'bold',
-            fontSize:16  }
+        fontSize : 20,
+        textAlign:'center'
+           },
+       
+           Button:{
+               width:'80%',
+               color:'#000',
+               height:50,
+               borderRadius:5,
+               backgroundColor:'#2B39EB',
+               display:'flex',
+               margin:20,
+               justifyContent:'center',
+               alignItems:'center'
+                 },
+                 ButtonText:{
+                     color:'#fff',
+                   fontWeight:'bold',
+                   fontSize:16  }
 })

@@ -2,11 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import hotel from './../assets/hotel.jpg'
 import profile from './../assets/profile.png'
 import { useState,useEffect } from 'react';
+
 import {useNavigation} from '@react-navigation/native'
 import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert } from 'react-native';
 import FormError from './Response/FormError';
 import FormApprove from './Response/FormApprove';
 import firebase from 'firebase';
+
 export default function Profile() {
   const navigation = useNavigation();
   const [LName,setLname] = useState('');
@@ -17,6 +19,9 @@ export default function Profile() {
   const[displayFormErr,setdisplayFormErr] = useState(false);
   const [successMessage,SetsuccessMessage] = useState('');
   const [isLoading,setisLoading] = useState(false); 
+  
+
+
   
 useEffect (() =>{
    
@@ -89,6 +94,10 @@ function OnPhoneChange(value){
     setPhone(value);
 };
 
+const Logout = () => {
+  navigation.navigate('Login')
+  firebase.auth().signOut();
+};
 return (
 
   <View style={styles.container}>
@@ -137,6 +146,9 @@ return (
 <TouchableOpacity onPress={Validation}  style={styles.Button} >
    <Text style={styles.ButtonText}>Update Infomation</Text>
 </TouchableOpacity>
+<TouchableOpacity onPress={Logout}  style={styles.ButtonLogout} >
+     <Text style={styles.ButtonText}>Logout</Text>
+  </TouchableOpacity>
 </View>
 
 {displayFormErr == true?
@@ -205,7 +217,7 @@ justifyContent:'flex-end',
 alignItems:'center'
   },
   logo:{
-    width:'60%',
+    width:'50%',
     resizeMode:'contain',
   },
   input: {
@@ -225,11 +237,23 @@ height:50,
 borderRadius:60,
 backgroundColor:'#2B39EB',
 display:'flex',
-marginBottom:20,
+marginBottom:5,
 justifyContent:'center',
 alignItems:'center'
 
   },
+  ButtonLogout:{
+    width:'90%',
+    color:'#000',
+    height:50,
+    borderRadius:60,
+    backgroundColor:'green',
+    display:'flex',
+    marginBottom:5,
+    justifyContent:'center',
+    alignItems:'center'
+    
+      },
   ButtonPassword:{
     width:'90%',
     color:'#000',

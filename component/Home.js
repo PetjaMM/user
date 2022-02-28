@@ -1,27 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import {useNavigation} from '@react-navigation/native'
+
 import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert } from 'react-native';
 import firebase from 'firebase';
-
+import Ionicons from 'react-native-vector-icons/Ionicons'
 export default function Home() {
-  const navigation = useNavigation();
-  const Logout = () => {
-    navigation.navigate('Login')
-    firebase.auth().signOut();
-  }
-   
 
   return (
     <View style={styles.container}>
- <View style ={styles.TopView}>
-  <View>
-      <Text > Welcome To Hotel Finder </Text> 
-  </View>
+ < View style ={styles.TopView}>
+ 
+      <Text style={styles.ButtonHome} >Home </Text> 
+      <Ionicons name='notifications' color={'#fff'} size={25}></Ionicons>
+  
  </View> 
  <View style ={styles.ButtomView}>
- <TouchableOpacity onPress={Logout}  style={styles.Button} >
-     <Text style={styles.ButtonText}>Logout</Text>
-  </TouchableOpacity>
+
+ 
  </View>
     </View>
   );
@@ -36,16 +30,19 @@ const styles = StyleSheet.create({
     flexDirection:'column',
     justifyContent:'center',
     alignItems:'center'
-  
   },
   TopView: {
     width:'100%',
-    height:'40%',
-    display:'flex',
+    height:'10%',
+    flex:1,
+    alignItems:'center',
+    flexDirection:'row',
+    backgroundColor:'green',
+    marginTop:40,
   },
   ButtomView:{
     width:'100%',
-    height:'60%',
+    height:'87%',
     display:'flex',
 justifyContent:'flex-end',
 alignItems:'center'
@@ -64,10 +61,17 @@ display:'flex',
 margin:20,
 justifyContent:'center',
 alignItems:'center'
-
+  },
+  ButtonHome:{
+     color:'#fff',
+     fontWeight:'bold',
+    fontSize:25,
+    width:'90%',
+    paddingLeft:10
   },
   ButtonText:{
     color:"#fff",
     fontWeight:'bold',
-    fontSize:16  }
+    fontSize:16  },
+
 });
