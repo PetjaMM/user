@@ -8,15 +8,15 @@ export default function Home() {
   const Logout = () => {
     navigation.navigate('Login')
     firebase.auth().signOut();
-  
- 
   }
    
 
   return (
     <View style={styles.container}>
  <View style ={styles.TopView}>
-  
+  <View>
+      <Text > Welcome To Hotel Finder </Text> 
+  </View>
  </View> 
  <View style ={styles.ButtomView}>
  <TouchableOpacity onPress={Logout}  style={styles.Button} >
@@ -42,8 +42,6 @@ const styles = StyleSheet.create({
     width:'100%',
     height:'40%',
     display:'flex',
-    justifyContent:'center',
-    alignItems:'center'
   },
   ButtomView:{
     width:'100%',
