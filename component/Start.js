@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import hotel from './../assets/hotel.jpg'
 import Logo from './../assets/Hotel.png'
 import SubLogo from'./../assets/comfort.png'
@@ -33,6 +33,7 @@ export default function Start() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop:40
   },
   image: {
     flex: 1,

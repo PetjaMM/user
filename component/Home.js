@@ -1,8 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-
 import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert } from 'react-native';
 import firebase from 'firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+
 export default function Home() {
 
   return (
@@ -14,8 +13,14 @@ export default function Home() {
   
  </View> 
  <View style ={styles.ButtomView}>
+ <Text style={styles.Label}>Where Are Your Going</Text>
+<TextInput
+        style={styles.input}
+        keyboardType="default"
+        editable = {false}
+   
+      />
 
- 
  </View>
     </View>
   );
@@ -24,32 +29,40 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'#fff',
+    marginTop:40
+
   },
-  image: {
-    flex: 1,
-    flexDirection:'column',
-    justifyContent:'center',
-    alignItems:'center'
+  Label:{
+    color: '#000',
+    fontSize: 15,
+    margin:5,
+    width:'85%',
+    fontWeight: "bold",
+  },
+  input: {
+    width:'90%',
+    color:'#000',
+    borderRadius:5,
+    height:50,
+    backgroundColor:'#fff',
+    marginBottom:10,
+    borderWidth: 1,
+    padding: 10,
   },
   TopView: {
     width:'100%',
-    height:'10%',
+    height:'8%',
     flex:1,
     alignItems:'center',
     flexDirection:'row',
     backgroundColor:'green',
-    marginTop:40,
   },
   ButtomView:{
     width:'100%',
-    height:'87%',
+    height:'92%',
     display:'flex',
-justifyContent:'flex-end',
 alignItems:'center'
-  },
-  logo:{
-    width:'70%',
-    resizeMode:'contain',
   },
   Button:{
 width:'90%',

@@ -5,7 +5,6 @@ export default function MyBookings() {
   return (
     <View style={styles.container}>
       <Text>Bookings</Text>
-      <StatusBar style="auto" />
     </View>
   );
 }
@@ -13,6 +12,7 @@ export default function MyBookings() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop:40,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',

@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React, { useState , useEffect} from 'react';
 import hotel from './../assets/hotel.jpg'
 import Logo from './../assets/Hotel.png'
@@ -102,6 +102,7 @@ firebase.auth().signInWithEmailAndPassword(Email,Password).then(() =>{
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      marginTop:40
     },
     input: {
         width:'90%',

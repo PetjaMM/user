@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
   container: {
 backgroundColor:'#fff',
     flex: 1,
+    marginTop:40
   },
   Heading:{
     color: "#000",
@@ -203,7 +204,7 @@ backgroundColor:'#fff',
   },
   TopView: {
     width:'100%',
-    height:'40%',
+    height:'30%',
     display:'flex',
     paddingTop:40,
     justifyContent:'center',
@@ -211,7 +212,7 @@ backgroundColor:'#fff',
   },
   ButtomView:{
     width:'100%',
-    height:'60%',
+    height:'70%',
     display:'flex',
 justifyContent:'flex-end',
 alignItems:'center'
