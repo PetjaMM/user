@@ -1,9 +1,20 @@
-import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert } from 'react-native';
+import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert ,Platform} from 'react-native';
 import firebase from 'firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
+import { useState } from 'react';
+import DatePicker from 'react-native-datepicker';
 export default function Home() {
-
+  const [date, setDate] = useState('')
+  const [open, setOpen] = useState(false)
+  const [Location,setLocation] = useState('');
+  const [days,setDays]= useState('1');
+  
+function onLocationChange(value){
+  setLocation(value);
+}
+function onDaysChange (value){
+  setDays(value);
+}
   return (
     <View style={styles.container}>
  < View style ={styles.TopView}>
@@ -17,7 +28,26 @@ export default function Home() {
 <TextInput
         style={styles.input}
         keyboardType="default"
-        editable = {false}
+      
+      />
+       <Text style={styles.Label}>Check In Date</Text>
+<DatePicker  style={styles.inputDate}   
+modal
+open={open}
+date={date}
+onConfirm={(date) => {
+  setOpen(false)
+  setDate(date)
+}}
+onCancel={() => {
+  setOpen(false)
+}}
+></DatePicker>
+       <Text style={styles.Label}>How Many Days Are You Planing To Stay</Text>
+       <TextInput
+        style={styles.input}
+        keyboardType="numeric"
+        maxLength={2}
    
       />
 
@@ -39,6 +69,12 @@ const styles = StyleSheet.create({
     margin:5,
     width:'85%',
     fontWeight: "bold",
+  },inputDate:{
+    width:'90%',
+    color:'#000',
+    marginBottom:10,
+    height:50,
+    backgroundColor:'#fff',
   },
   input: {
     width:'90%',
