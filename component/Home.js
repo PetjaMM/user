@@ -4,11 +4,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useState } from 'react';
 import DatePicker from 'react-native-datepicker';
 export default function Home() {
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState(new Date())
   const [open, setOpen] = useState(false)
   const [Location,setLocation] = useState('');
   const [days,setDays]= useState('1');
   
+  function onCalenderChange(value){
+    setDate(date);
+  }
 function onLocationChange(value){
   setLocation(value);
 }
@@ -32,16 +35,9 @@ function onDaysChange (value){
       />
        <Text style={styles.Label}>Check In Date</Text>
 <DatePicker  style={styles.inputDate}   
-modal
-open={open}
+mode = 'date'
 date={date}
-onConfirm={(date) => {
-  setOpen(false)
-  setDate(date)
-}}
-onCancel={() => {
-  setOpen(false)
-}}
+onDateChange = {onCalenderChange(date)}
 ></DatePicker>
        <Text style={styles.Label}>How Many Days Are You Planing To Stay</Text>
        <TextInput
