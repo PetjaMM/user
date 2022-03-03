@@ -3,29 +3,14 @@ import firebase from 'firebase';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useState } from 'react';
 import DatePicker from 'react-native-datepicker';
+import Nav from './Views/Nav';
 export default function Home() {
-  const [date, setDate] = useState(new Date())
-  const [open, setOpen] = useState(false)
-  const [Location,setLocation] = useState('');
-  const [days,setDays]= useState('1');
-  
-  function onCalenderChange(value){
-    setDate(date);
-  }
-function onLocationChange(value){
-  setLocation(value);
-}
-function onDaysChange (value){
-  setDays(value);
-}
+
+ 
+
   return (
     <View style={styles.container}>
- < View style ={styles.TopView}>
- 
-      <Text style={styles.ButtonHome} >Home </Text> 
-      <Ionicons name='notifications' color={'#fff'} size={25}></Ionicons>
-  
- </View> 
+<Nav text={'Home'}></Nav>
  <View style ={styles.ButtomView}>
  <Text style={styles.Label}>Where Are Your Going</Text>
 <TextInput
@@ -34,18 +19,7 @@ function onDaysChange (value){
       
       />
        <Text style={styles.Label}>Check In Date</Text>
-<DatePicker  style={styles.inputDate}   
-mode = 'date'
-date={date}
-onDateChange = {onCalenderChange(date)}
-></DatePicker>
-       <Text style={styles.Label}>How Many Days Are You Planing To Stay</Text>
-       <TextInput
-        style={styles.input}
-        keyboardType="numeric"
-        maxLength={2}
-   
-      />
+
 
  </View>
     </View>
@@ -82,14 +56,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
   },
-  TopView: {
-    width:'100%',
-    height:'8%',
-    flex:1,
-    alignItems:'center',
-    flexDirection:'row',
-    backgroundColor:'green',
-  },
+
   ButtomView:{
     width:'100%',
     height:'92%',

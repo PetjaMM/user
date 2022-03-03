@@ -1,12 +1,10 @@
 import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import Nav from './Views/Nav';
 export default function Search() {
   return (
     <View style={styles.container}>
-    < View style ={styles.TopView}>
-    
-         <Text style={styles.ButtonHome} >Hotel Search </Text>  
-    </View> 
+   <Nav text={'Hotel Search'}></Nav>
 
     <View style= {styles.Search}> 
       <TextInput style ={styles.SearchInput} placeholder='Search Hotel By Town'></TextInput>

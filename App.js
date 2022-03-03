@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './component/Login';
 import Register from './component/Register';
 import Test from './component/Test';
+import HotelView from './component/HotelView';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -28,6 +29,8 @@ export default function App() {
             <Stack.Screen name="Register" component={Register} 
            options={{header: () => null}} />
             <Stack.Screen name="Test" component={Test} 
+           options={{header: () => null}} />
+             <Stack.Screen name="HotelView" component={HotelView} 
            options={{header: () => null}} />
       </Stack.Navigator>
     </NavigationContainer>
