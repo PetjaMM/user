@@ -27,6 +27,24 @@ function OnPassChange(value){
 function OnEmailChange(value){
     setEmail(value);
 }
+const ResetPassword = () =>{
+  if(Email==""){
+
+    Alert.alert('Please Enter Your Email for password reset')
+    return;
+  }
+  setisLoading(true);
+  firebase.auth().sendPasswordResetEmail(Email)
+  .then(()=>{
+    setisLoading(false)
+    Alert.alert("Password Reset","A Reset Password Link Has Been Send To Your Email ");
+    
+  }).catch(err => {
+    setisLoading(false);
+    SetErrMessage(err.message);
+    setdisplayFormErr(true);
+  })
+}
 
 const Validation = () =>{
   var form_inputs = [Email,Password];
@@ -79,7 +97,7 @@ firebase.auth().signInWithEmailAndPassword(Email,Password).then(() =>{
       <TouchableOpacity onPress={()=> navigation.navigate("Register")}  style={styles.ButtonReg} >
          <Text style={styles.ButtonText}>Create An Account</Text>
       </TouchableOpacity>
-      <Text style={styles.text}>Forgort Password Click Here</Text>
+      <Text onPress={ResetPassword} style={styles.text}>Forgort Password Click Here</Text>
      </View>
      {displayFormErr == true?
     <FormError   hideErrOverlay= {setdisplayFormErr} err = {ErrMessage} />
