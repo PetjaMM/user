@@ -1,66 +1,71 @@
-import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert ,Platform} from 'react-native';
+import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput,ScrollView, Button, View,Text, Alert ,Platform} from 'react-native';
 import Lodge from './../assets/lodge3.jpg'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import RoomsCard from './Views/RoomsCard';
+import Home from './Views/HotelCard';
+import Nav from './Views/Nav';
+import {useNavigation} from '@react-navigation/native'
 
 export default function HotelView() {
+  const navigation = useNavigation();
   return (
-    <View style ={styles.container} > 
-    <Image style={styles.logo} source={Lodge}></Image>
-    <View style={styles.buttomView}>
-    <Text style = {styles.Hotelname}>Hotel name</Text>
-    <View style={styles.HotelLocationView} >
-    <Ionicons name='location' color={'grey'} size={15}></Ionicons>
-    <Text style= {styles.HotelLocation}>Location</Text>
-    </View>
-    <View style={styles.HotelLocationView} >
 
-        <View style={styles.InfoView} >
-        <Ionicons name='cash-outline' color={'grey'} size={15}></Ionicons>
-        <Text style={styles.Info } >Price</Text>
-        </View>
-        <View style={styles.InfoView}>
-        <Ionicons name='star' color={'grey'} size={15}></Ionicons>
-        <Text style={styles.Info}>Star Rating</Text>
-        </View>
-        <View style={styles.InfoView}>
+    
+<View  style ={styles.container} >
+
+      <View> 
+         <Image style={styles.logo} source={Lodge}></Image>
+         <Text style = {styles.Hotelname}></Text>
+         <View style={styles.HotelLocationView} >
+         <View style={styles.InfoView}>
+         <Ionicons name='location' color={'#000'} size={25}></Ionicons>
+         <Text style= {styles.Info}>Location</Text>
+         </View>
         
-        </View>
-    </View>
-    <View>
-    <Text style = {styles.Hotelname}>Details</Text>
+         </View>
+         <View style={styles.HotelLocationView} >
+             <View style={styles.InfoView}>
+             <Ionicons name='star' color={'#000'} size={25}></Ionicons>
+             <Text style={styles.Info}>Star Rating</Text>
+             
+             </View>
+  
+        
+    
     
 
-    <View>
+    </View>
+      </View>
+      <Text style = {styles.Hotelnames}>Rooms Available</Text>
+      <ScrollView  style ={styles.Rooms}>
+        
+      <RoomsCard></RoomsCard>
+ <RoomsCard></RoomsCard>
+ <RoomsCard></RoomsCard>
+      </ScrollView>
 
-    </View>
-    <Text style = {styles.Hotelname}>About</Text>
-    <Text style={styles.Info}>info</Text>
-    </View>
-    
-   
+ </View>
+  
 
-    
-    </View>
-    <View style={styles.buttonViewLayout}>
- <TouchableOpacity style={styles.Button} >
-<Text style={styles.ButtonText}>Book Now</Text>
-</TouchableOpacity>
-    </View>
-</View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    backgroundColor:'#fff'
+      backgroundColor: '#fff',
+   display:'flex',
+   height:'60%',
+   flex:1,
+    borderRadius:10,
+  },Rooms:{
+    height:'40%',
   },
+
   logo:{
       width:'100%',
-      height:"60%",
-      borderTopLeftRadius:10,
-      borderTopRightRadius:10,
-  
+      height:350,
+      borderBottomLeftRadius:40,
+      borderBottomRightRadius:40,
       resizeMode:'cover'
   },
   Hotelname:{
@@ -69,8 +74,19 @@ const styles = StyleSheet.create({
    marginLeft:5,
    fontWeight:'bold',
    fontSize:25,
-  },HotelLocationView:{
-    
+  },
+  Hotelnames:{
+    color:'black',
+    width:"100%",
+    textAlign:"center",
+    textDecorationLine: 'underline',
+    padding:4,
+    alignContent:'center',
+    justifyContent:'center',
+    fontWeight:'bold',
+    fontSize:20,
+  },
+  HotelLocationView:{
       flexDirection:'row',
       marginLeft:5,
       paddingBottom:5,
@@ -80,46 +96,27 @@ const styles = StyleSheet.create({
       marginLeft:2,
    color:'grey'
   },Info:{
+    color:'#000',
       paddingLeft:3,
   },
   InfoView:{
-    
-      width:'20%',
       alignItems:'center',
       justifyContent:'center',
       flexDirection:'row',
   },
   Button:{
-
-      width:'85%',
+      width:'80%',
       color:'#000',
-      height:50,
+      height:35,
       backgroundColor:'green',
-      borderRadius:30,
+      borderRadius:20,
       justifyContent:'center',
-      alignItems:'center',
-    
+      alignItems:'center'
+      
         },
         ButtonText:{
           color:"#fff",
           fontWeight:'bold',
-          fontSize:17
-       },buttomView:{
-        width:'100%',
-        height:'40%',
-        display:'flex',
-        flex:1,
-        backgroundColor:'#fff'
-    
+       },
 
-
-       },buttonViewLayout:{
-        alignItems:'center',
-        display:'flex',
-        backgroundColor:'#fff',
-        marginBottom:10,
-        justifyContent:'flex-end',
-        alignItems:'center'
-        
-       }
 });

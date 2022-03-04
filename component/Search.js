@@ -1,18 +1,42 @@
 import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Nav from './Views/Nav';
+import HomeSearch from './Views/HotelSearch';
+import HotelCard from './Views/HotelCard';
+import { useState,useEffect} from 'react';
 export default function Search() {
+const [Location,SetLocation]= useState("");
+const [search,setSearch] = useState(false);
+useEffect(()=>{
+if(Location==""){
+  return setSearch(false)
+}
+},[])
+function OnLocationChange(value){
+  SetLocation(value);
+}
+function searchLocation(){
+  setSearch(true);
+}
   return (
     <View style={styles.container}>
    <Nav text={'Hotel Search'}></Nav>
 
     <View style= {styles.Search}> 
-      <TextInput style ={styles.SearchInput} placeholder='Search Hotel By Town'></TextInput>
+      <TextInput style ={styles.SearchInput}  onChangeText={OnLocationChange} placeholder='Search Hotel By Location'></TextInput>
 
-      <Ionicons name='search' style={styles.icon} color={'#000'} size={25}></Ionicons>
+      <Ionicons  name='search' style={styles.icon} color={'#000'} size={25} onPress={searchLocation}></Ionicons>
       </View>
     <View style ={styles.ButtomView}>
-      
+    {search == true?
+     <HomeSearch loc={Location} ></HomeSearch>
+    :search==false?
+    <HotelCard></HotelCard>
+    :
+
+    null
+    }
+   
     
     
     </View>

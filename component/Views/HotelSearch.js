@@ -3,15 +3,20 @@ import Lodge from './../../assets/lodge3.jpg'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import firebase from 'firebase';
 import { useEffect,useState} from 'react';
-import {useNavigation} from '@react-navigation/native'
-const Home = () => {
+
+const HomeSearch = (props) => {
   const [hotels,setHotels] = useState([]);
-  const navigation = useNavigation();
+  const [Location,SetLocation]= useState("");
   useEffect (()=>{
-    firebase.firestore().collection('Hotel').get()
+      
+       SetLocation(props.loc);
+       console.log("My Location",Location);
+    firebase.firestore().collection('Hotel')
+    .where('location','==',Location)
+    .get()
     .then(results=> results.docs)
     .then(docs => docs.map(doc => ({
-        id:doc.id,
+        id:docs.id,
      details:doc.data().details,
      hotelName:doc.data().hotelName,
      location:doc.data().location,
@@ -48,7 +53,7 @@ const Home = () => {
              <Text style={styles.Info}>5.0</Text>
              </View>
              <View style={styles.InfoView}>
-             <TouchableOpacity style={styles.Button} onPress={()=> navigation.navigate("HotelView",{key:hotel.id})} >
+             <TouchableOpacity style={styles.Button} >
      <Text style={styles.ButtonText}>Book Now</Text>
   </TouchableOpacity>
              </View>
@@ -68,7 +73,7 @@ const Home = () => {
     );
 }
  
-export default Home;
+export default HomeSearch;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ecf0f1',

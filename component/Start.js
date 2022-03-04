@@ -18,7 +18,7 @@ export default function Start() {
 </Image>
  </View>
  <View style ={styles.ButtomView}>
-  <TouchableOpacity onPress={()=> navigation.navigate("HotelView")}  style={styles.Button} >
+  <TouchableOpacity onPress={()=> navigation.navigate("Login")}  style={styles.Button} >
      <Text style={styles.ButtonText}>Get Started</Text>
   </TouchableOpacity>
  </View>

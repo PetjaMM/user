@@ -1,55 +1,35 @@
 import { Pressable,ImageBackground,TouchableOpacity,Image,StyleSheet,TextInput, Button, View,Text, Alert ,Platform} from 'react-native';
 import Lodge from './../../assets/lodge3.jpg'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import firebase from 'firebase';
-import { useEffect,useState} from 'react';
+import Nav from './Nav';
 import {useNavigation} from '@react-navigation/native'
-const Home = () => {
-  const [hotels,setHotels] = useState([]);
-  const navigation = useNavigation();
-  useEffect (()=>{
-    firebase.firestore().collection('Hotel').get()
-    .then(results=> results.docs)
-    .then(docs => docs.map(doc => ({
-        id:doc.id,
-     details:doc.data().details,
-     hotelName:doc.data().hotelName,
-     location:doc.data().location,
-     price:doc.data().price,
-     url:doc.data().url
-    })))
-    .then(hotels => setHotels(hotels)
-       
-    );
-
-  },[]);
-
-
+const RoomsCard = (props) => {
+    const navigation = useNavigation();
     return (
-<View>
-    {
-        hotels?.map( hotel=>
-<View style ={styles.container} > 
-         
-         <Image style={styles.logo} source={{uri: hotel.url}}></Image>
-         <Text style = {styles.Hotelname}>{hotel.hotelName}</Text>
+    <View style ={styles.container} > 
+         <Image style={styles.logo} source={Lodge}></Image>
+         <Text style = {styles.Hotelname}>Room Information</Text>
          <View style={styles.HotelLocationView} >
-         <Ionicons name='location' color={'grey'} size={15}></Ionicons>
-         <Text style= {styles.HotelLocation}>{hotel.location}</Text>
+         <Ionicons name='cash-outline' color={'#000'} size={20}></Ionicons>
+         <Text style= {styles.HotelLocation}>Price</Text>
          </View>
          <View style={styles.HotelLocationView} >
 
              <View style={styles.InfoView} >
-             <Ionicons name='cash-outline' color={'grey'} size={15}></Ionicons>
-             <Text style={styles.Info } >Starting Price : R {hotel.price}</Text>
+             <Ionicons name='bed' color={'#000'} size={20}></Ionicons>
+             <Text style={styles.Info } >Beds</Text>
              </View>
              <View style={styles.InfoView}>
-             <Ionicons name='star' color={'grey'} size={15}></Ionicons>
-             <Text style={styles.Info}>5.0</Text>
+             <Ionicons name='wifi' color={'#000'} size={20}></Ionicons>
+             <Text style={styles.Info}>Wifi</Text>
              </View>
              <View style={styles.InfoView}>
-             <TouchableOpacity style={styles.Button} onPress={()=> navigation.navigate("HotelView",{key:hotel.id})} >
-     <Text style={styles.ButtonText}>Book Now</Text>
+             <Ionicons name='restaurant' color={'#000'} size={20}></Ionicons>
+             <Text style={styles.Info}>breakfast</Text>
+             </View>
+             <View style={styles.InfoView}>
+             <TouchableOpacity onPress={()=> navigation.navigate("RoomsView")}  style={styles.Button} >
+     <Text style={styles.ButtonText}>View</Text>
   </TouchableOpacity>
              </View>
          </View>
@@ -58,27 +38,20 @@ const Home = () => {
     
 
     </View>
-        )
-
-    }
-</View>
-
-    
     
     );
 }
  
-export default Home;
+export default RoomsCard;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ecf0f1',
-      margin:5,
-  
-      borderRadius:10,
+      margin:10,
+      borderRadius:5,
     },
     logo:{
         width:'100%',
-        height:150,
+        height:100,
         borderTopLeftRadius:10,
         borderTopRightRadius:10,
     
@@ -89,7 +62,7 @@ const styles = StyleSheet.create({
      color:'black',
      marginLeft:5,
      fontWeight:'bold',
-     fontSize:25,
+     fontSize:15,
     },HotelLocationView:{
         flexDirection:'row',
         marginLeft:5,
@@ -104,7 +77,7 @@ const styles = StyleSheet.create({
     },
     InfoView:{
       
-        width:'32%',
+        width:'25%',
         alignItems:'center',
         justifyContent:'center',
         flexDirection:'row',
@@ -114,7 +87,7 @@ const styles = StyleSheet.create({
         color:'#000',
         height:35,
         backgroundColor:'green',
-        borderRadius:20,
+        borderRadius:5,
         justifyContent:'center',
         alignItems:'center'
         
