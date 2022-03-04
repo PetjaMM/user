@@ -4,10 +4,42 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import { useState,useEffect } from 'react';
 import DatePicker from 'react-native-datepicker';
 import Nav from './Views/Nav';
+import Search from './Search';
+import {useNavigation} from '@react-navigation/native'
 export default function Home() {
+  const navigation = useNavigation();
   const [startDate, setStartDate] = useState('');
- 
+  const[adults,setAdults] = useState("2");
+  const[child,setChild] = useState("0");
+  const[nights,setNights]=useState("1");
+  const[Town,setTown]= useState("");
 
+ const SearchHotel =() =>{
+    navigation.navigate("Available",{
+      date:startDate,
+      adults:adults,
+      child:child,
+      nights:nights,
+      Town:Town
+    })    
+  }
+
+  const Validation = () =>{
+    var form_inputs = [startDate,adults,child,nights,Town];
+if(form_inputs.includes('') || form_inputs.includes(undefined)){
+ Alert.alert("Error","Please Fill In All The Information");
+  return ;
+}if(adults=='0'){
+  Alert.alert("Error","They Can't 0 Adults In The Room")
+return;
+}  
+if(nights=='0'){
+  Alert.alert("Error","Nights Cant be zero")
+return;
+} 
+ 
+SearchHotel();
+  }
 
   return (
     <View style={styles.container}>
@@ -15,10 +47,12 @@ export default function Home() {
  <View style ={styles.ButtomView}>
  <Text style={styles.Label}>Where Are Your Going</Text>
 <TextInput
+
+value={Town}
         style={styles.input}
         keyboardType="default"
 
-      
+        onChangeText={(Town) => {setTown(Town)}}
       />
        <Text style={styles.Label}>Check In Date</Text>
       <DatePicker
@@ -40,21 +74,26 @@ export default function Home() {
         style={styles.input}
         keyboardType="numeric"
         maxLength={2}
-      
+        value ={nights}
+        onChangeText={(nights) => {setNights(nights)}}
       />
        <Text style={styles.Label}>Adults</Text>
 <TextInput
         style={styles.input}
         keyboardType="numeric"
         maxLength={1}
+        value= {adults}
+        onChangeText={(adults) => {setAdults(adults)}}
       />
        <Text style={styles.Label}>Children Age: 0 to 15</Text>
 <TextInput
         style={styles.input}
         keyboardType="numeric"
         maxLength={1}
+        value= {child}
+        onChangeText={(child) => {setChild(child)}}
       />
-<TouchableOpacity  style={styles.Button} >
+<TouchableOpacity  style={styles.Button} onPress={Validation} >
      <Text style={styles.ButtonText}>Get Available Hotels</Text>
   </TouchableOpacity>
 

@@ -8,6 +8,7 @@ import Register from './component/Register';
 import Test from './component/Test';
 import HotelView from './component/HotelView';
 import RoomsView from './component/RoomsView';
+import Available from './component/Available';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 
@@ -34,6 +35,8 @@ export default function App() {
              <Stack.Screen name="HotelView" component={HotelView} 
            options={{header: () => null}} />
             <Stack.Screen name="RoomsView" component={RoomsView} 
+           options={{header: () => null}} />
+             <Stack.Screen name="Available" component={Available} 
            options={{header: () => null}} />
       </Stack.Navigator>
     </NavigationContainer>

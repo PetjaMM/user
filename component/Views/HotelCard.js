@@ -4,11 +4,14 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import firebase from 'firebase';
 import { useEffect,useState} from 'react';
 import {useNavigation} from '@react-navigation/native'
-const Home = () => {
+const Home = (props) => {
   const [hotels,setHotels] = useState([]);
   const navigation = useNavigation();
+const Town = props.Town 
   useEffect (()=>{
-    firebase.firestore().collection('Hotel').get()
+    firebase.firestore().collection('Hotel')
+    .where('location','==',Town)
+    .get()
     .then(results=> results.docs)
     .then(docs => docs.map(doc => ({
         id:doc.id,

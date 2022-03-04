@@ -6,11 +6,9 @@ import { useEffect,useState} from 'react';
 
 const HomeSearch = (props) => {
   const [hotels,setHotels] = useState([]);
-  const [Location,SetLocation]= useState("");
+  const  Location = props.loc;
   useEffect (()=>{
-      
-       SetLocation(props.loc);
-       console.log("My Location",Location);
+    
     firebase.firestore().collection('Hotel')
     .where('location','==',Location)
     .get()

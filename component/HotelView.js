@@ -4,29 +4,48 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import RoomsCard from './Views/RoomsCard';
 import Home from './Views/HotelCard';
 import Nav from './Views/Nav';
+import { useRoute } from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native'
-
+import { useEffect, useState } from 'react';
+import firebase from 'firebase';
 export default function HotelView() {
   const navigation = useNavigation();
+  const route = useRoute();
+  const [Hotel,setHotel]=useState([]);
+  const id = route.params.key;
+ useEffect(()=>{
+  firebase.firestore()
+  .collection('Hotel')
+  .doc(id)
+  .get()
+  .then(documentSnapshot => {
+    console.log('User exists: ', documentSnapshot.exists);
+
+    if (documentSnapshot.exists) {
+      console.log('User data: ', documentSnapshot.data());
+      setHotel(documentSnapshot.data())
+    }
+  });
+ },[]);
   return (
 
     
 <View  style ={styles.container} >
 
       <View> 
-         <Image style={styles.logo} source={Lodge}></Image>
-         <Text style = {styles.Hotelname}></Text>
+         <Image style={styles.logo} source={{uri: Hotel['url']}}></Image>
+         <Text style = {styles.Hotelname}>{Hotel['hotelName']}</Text>
          <View style={styles.HotelLocationView} >
          <View style={styles.InfoView}>
          <Ionicons name='location' color={'#000'} size={25}></Ionicons>
-         <Text style= {styles.Info}>Location</Text>
+         <Text style= {styles.Info}>{Hotel['location']}</Text>
          </View>
         
          </View>
          <View style={styles.HotelLocationView} >
              <View style={styles.InfoView}>
              <Ionicons name='star' color={'#000'} size={25}></Ionicons>
-             <Text style={styles.Info}>Star Rating</Text>
+             <Text style={styles.Info}>5.0</Text>
              
              </View>
   
